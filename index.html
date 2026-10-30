@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b090a">
+  <meta name="description" content="Lucifer Dashboard: il centro di controllo desktop multipiattaforma sviluppato in Rust e Tauri.">
+  <title>Lucifer Dashboard — Download</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+    :root{--ember:#e5633d;--copper:#c28762;--ivory:#f4e5da;--muted:#988f8b;--panel:rgba(17,15,17,.76);--line:rgba(235,134,91,.17);font-family:'Manrope',sans-serif;color:#eee7e2;background:#080708;font-synthesis:none}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;min-height:100vh;background:#080708;color:#eee7e2;overflow-x:hidden}button,a{font:inherit}a{color:inherit;text-decoration:none}.page{position:relative;isolation:isolate;min-height:100vh;background:linear-gradient(180deg,rgba(5,5,6,.48),#080708 81%),url('./assets/inferno-background.png') center top/cover fixed no-repeat}.page::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 50% 20%,rgba(160,46,26,.14),transparent 34%),linear-gradient(90deg,rgba(5,5,6,.42),transparent 28%,transparent 72%,rgba(5,5,6,.42));pointer-events:none}
+    .nav{width:min(1220px,calc(100% - 44px));height:82px;margin:auto;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.075)}.nav-brand{display:flex;align-items:center;gap:11px}.nav-brand img{width:35px;height:35px;object-fit:contain;filter:drop-shadow(0 0 10px rgba(219,76,43,.32))}.nav-brand span{font-size:11px;font-weight:700;letter-spacing:2.4px}.nav-links{display:flex;align-items:center;gap:26px;color:#a59d98;font:9px 'DM Mono',monospace;letter-spacing:1px}.nav-links a:hover{color:#f1c3aa}.github-link{padding:9px 13px;border:1px solid rgba(235,134,91,.25);border-radius:8px;color:#d5a086!important;background:rgba(157,54,34,.08)}
+    .hero{width:min(1220px,calc(100% - 44px));min-height:680px;margin:auto;padding:82px 0 72px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(380px,.95fr);align-items:center;gap:72px}.eyebrow{display:flex;align-items:center;gap:9px;color:#cf8d6c;font:9px 'DM Mono',monospace;letter-spacing:1.7px}.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:#d65b36;box-shadow:0 0 14px #e45932}.hero-logo{display:block;width:min(520px,92%);height:auto;margin:15px 0 5px;filter:drop-shadow(0 15px 38px rgba(91,22,15,.35))}.hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.hero-copy>p{max-width:570px;margin:8px 0 29px;color:#a79f9b;font-size:14px;line-height:1.85}.hero-meta{display:flex;flex-wrap:wrap;gap:9px}.hero-meta span{padding:7px 10px;border:1px solid rgba(255,255,255,.085);border-radius:6px;background:rgba(255,255,255,.025);color:#9d928c;font:8px 'DM Mono',monospace;letter-spacing:.65px}
+    .app-window{position:relative;min-height:420px;border:1px solid rgba(232,137,96,.2);border-radius:18px;background:linear-gradient(145deg,rgba(30,25,27,.92),rgba(10,11,13,.93));box-shadow:0 35px 100px #000b,0 0 60px rgba(144,42,25,.1);overflow:hidden;transform:perspective(1100px) rotateY(-4deg) rotateX(1deg)}.window-bar{height:51px;padding:0 17px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.07)}.window-bar i{width:7px;height:7px;border-radius:50%;background:#87412f}.window-bar i:nth-child(2){background:#a66d42}.window-bar i:nth-child(3){background:#6f754d}.window-title{margin-left:auto;color:#6e6867;font:7px 'DM Mono';letter-spacing:1px}.window-body{display:grid;grid-template-columns:105px 1fr 112px;gap:10px;padding:14px}.side-monitor{display:grid;gap:8px}.mini-card{min-height:57px;padding:9px;border:1px solid rgba(255,255,255,.06);border-radius:8px;background:rgba(255,255,255,.025)}.mini-card span{display:block;color:#706c6c;font:6px 'DM Mono';letter-spacing:.8px}.mini-value{display:flex;align-items:center;gap:8px;margin-top:7px;color:#c99a82;font-size:10px}.ring{width:27px;height:27px;border:4px solid rgba(255,255,255,.07);border-top-color:#d55d39;border-right-color:#b94d31;border-radius:50%;transform:rotate(28deg)}.mock-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;align-content:start}.mock-tile{height:84px;padding:11px;border:1px solid rgba(255,255,255,.07);border-radius:9px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}.mock-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:7px;background:rgba(198,82,48,.12);color:#d58b69;font-size:10px}.mock-tile b{display:block;margin-top:13px;color:#c9c5c2;font-size:7px}.network-line{height:30px;margin-top:8px;background:linear-gradient(165deg,transparent 45%,rgba(222,91,54,.7) 47%,transparent 50%) center/100% 100% no-repeat}
+    .features{width:min(1220px,calc(100% - 44px));margin:0 auto;padding:80px 0 84px;border-top:1px solid rgba(255,255,255,.07)}.section-kicker{color:#c98261;font:9px 'DM Mono';letter-spacing:1.5px}.features h2,.download-section h2{max-width:670px;margin:12px 0 38px;color:#eee7e2;font-size:clamp(30px,4vw,47px);line-height:1.08;letter-spacing:-2px}.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.feature{min-height:185px;padding:24px;border:1px solid rgba(255,255,255,.075);border-radius:12px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));backdrop-filter:blur(8px)}.feature-number{color:#c66b4c;font:9px 'DM Mono'}.feature h3{margin:28px 0 10px;font-size:14px}.feature p{margin:0;color:#87817e;font-size:11px;line-height:1.7}
+    .download-section{position:relative;width:min(1220px,calc(100% - 44px));margin:auto;padding:93px 0 115px;text-align:center;border-top:1px solid rgba(255,255,255,.07)}.download-section::before{content:"";position:absolute;left:50%;top:10px;width:660px;height:360px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(180,50,27,.16),transparent 68%);pointer-events:none}.download-section h2{position:relative;margin:12px auto 12px}.download-lead{position:relative;margin:0 auto 35px;color:#918986;font-size:12px}.download-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:870px;margin:auto;text-align:left}.download-card{position:relative;min-height:184px;padding:22px;border:1px solid rgba(255,255,255,.085);border-radius:13px;background:linear-gradient(145deg,rgba(33,28,29,.92),rgba(15,15,17,.92));box-shadow:0 15px 45px rgba(0,0,0,.2);transition:.22s}.download-card:hover{transform:translateY(-4px);border-color:rgba(224,112,73,.4);box-shadow:0 22px 60px rgba(0,0,0,.35)}.platform-head{display:flex;align-items:center;gap:12px}.platform-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:10px;background:rgba(188,73,43,.11);border:1px solid rgba(215,105,70,.17)}.platform-icon img{width:24px;height:24px;object-fit:contain;filter:invert(72%) sepia(25%) saturate(904%) hue-rotate(325deg) brightness(98%) contrast(91%)}.platform-icon img[alt="Linux"]{width:26px;height:26px}.platform-head strong{display:block;font-size:14px}.platform-head small{display:block;margin-top:3px;color:#726d6c;font:7px 'DM Mono';letter-spacing:.7px}.download-action{position:absolute;left:22px;right:22px;bottom:21px;height:39px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;border:1px solid rgba(218,111,75,.3);border-radius:8px;background:rgba(175,63,38,.11);color:#dc9d7d;font-size:10px;font-weight:700}.download-action:hover{background:rgba(188,68,40,.2);color:#f3b899}.download-action span:last-child{font-size:16px}.download-toggle{cursor:pointer;width:calc(100% - 44px)}.download-menu{position:absolute;z-index:5;left:22px;right:22px;top:calc(100% - 14px);padding:6px;border:1px solid rgba(225,124,84,.24);border-radius:9px;background:#191719;box-shadow:0 20px 45px #000b;opacity:0;visibility:hidden;transform:translateY(-7px);transition:.18s}.download-menu.open{opacity:1;visibility:visible;transform:none}.download-menu a{height:39px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;border-radius:6px;color:#b9afaa;font-size:9px}.download-menu a:hover{background:rgba(208,92,57,.12);color:#edb094}.download-menu b{color:#d37957;font:8px 'DM Mono'}
+    footer{width:min(1220px,calc(100% - 44px));margin:auto;padding:25px 0 31px;display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07);color:#655f5e;font:8px 'DM Mono';letter-spacing:.8px}footer a:hover{color:#c98261}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:55px;gap:45px}.app-window{width:min(610px,100%);margin:auto;transform:none}.feature-grid{grid-template-columns:repeat(2,1fr)}.download-grid{grid-template-columns:1fr;max-width:520px}.download-card{min-height:150px}.download-menu{top:calc(100% - 12px)}}
+    @media(max-width:620px){.nav-links a:not(.github-link){display:none}.hero{width:min(100% - 30px,1220px);padding-top:45px}.hero-logo{width:100%;margin-top:19px}.hero-copy>p{font-size:12px}.app-window{min-height:330px}.window-body{grid-template-columns:75px 1fr}.network-preview{display:none}.mock-tile{height:70px}.features,.download-section,footer{width:min(100% - 30px,1220px)}.feature-grid{grid-template-columns:1fr}.features h2,.download-section h2{font-size:32px}.feature{min-height:150px}.download-section{padding-top:70px}footer{gap:20px;line-height:1.6}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav" aria-label="Navigazione principale">
+      <a class="nav-brand" href="#top"><img src="./assets/lucifer-app-icon.png" alt=""><span>LUCIFER</span></a>
+      <div class="nav-links"><a href="#features">FUNZIONI</a><a href="#download">DOWNLOAD</a><a class="github-link" href="https://github.com/FHurricane/Lucifer" target="_blank" rel="noreferrer">GITHUB ↗</a></div>
+    </nav>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">DASHBOARD DESKTOP MULTIPIATTAFORMA</div>
+          <img class="hero-logo" src="./assets/lucifer-logo-infernal.png" alt="Lucifer">
+          <h1>Lucifer Dashboard</h1>
+          <p>Un centro di controllo rapido e personale per applicazioni, servizi web e documenti. Monitoraggio delle risorse, catalogo di icone e un'interfaccia costruita in Rust per macOS, Windows e Linux.</p>
+          <div class="hero-meta"><span>RUST + TAURI</span><span>VERSIONE 1.0b</span><span>OPEN SOURCE</span></div>
+        </div>
+        <div class="app-window" aria-label="Anteprima dell'interfaccia Lucifer">
+          <div class="window-bar"><i></i><i></i><i></i><span class="window-title">LUCIFER DASHBOARD</span></div>
+          <div class="window-body">
+            <div class="side-monitor"><div class="mini-card"><span>CPU</span><div class="mini-value"><i class="ring"></i>34%</div></div><div class="mini-card"><span>RAM</span><div class="mini-value"><i class="ring"></i>61%</div></div><div class="mini-card"><span>GPU</span><div class="mini-value"><i class="ring"></i>18%</div></div></div>
+            <div class="mock-grid"><div class="mock-tile"><span class="mock-icon">▶</span><b>Media Server</b></div><div class="mock-tile"><span class="mock-icon">⌂</span><b>Home Assistant</b></div><div class="mock-tile"><span class="mock-icon">◈</span><b>Cloud</b></div><div class="mock-tile"><span class="mock-icon">＋</span><b>Nuovo accesso</b></div></div>
+            <div class="side-monitor network-preview"><div class="mini-card"><span>DOWNLOAD</span><div class="network-line"></div></div><div class="mini-card"><span>UPLOAD</span><div class="network-line"></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <div class="section-kicker">COSTRUITO PER IL TUO DESKTOP</div>
+        <h2>Tutto ciò che usi, in un solo spazio.</h2>
+        <div class="feature-grid">
+          <article class="feature"><span class="feature-number">01</span><h3>Accessi rapidi</h3><p>Avvia applicazioni, documenti e servizi web da una griglia personalizzabile e riordinabile.</p></article>
+          <article class="feature"><span class="feature-number">02</span><h3>Monitor di sistema</h3><p>Controlla CPU, RAM, GPU, archiviazione e traffico di rete direttamente dalla schermata principale.</p></article>
+          <article class="feature"><span class="feature-number">03</span><h3>Catalogo integrato</h3><p>Scegli rapidamente tra centinaia di icone per servizi self-hosted e strumenti professionali.</p></article>
+          <article class="feature"><span class="feature-number">04</span><h3>Multipiattaforma</h3><p>Un'unica esperienza nativa e coerente su macOS, Windows e distribuzioni Linux.</p></article>
+        </div>
+      </section>
+
+      <section class="download-section" id="download">
+        <div class="section-kicker">SCARICA LUCIFER</div>
+        <h2>Scegli il tuo sistema operativo.</h2>
+        <p class="download-lead">Versione 1.0b · Download dalle release ufficiali GitHub</p>
+        <div class="download-grid">
+          <article class="download-card"><div class="platform-head"><span class="platform-icon"><img src="./assets/apple.svg" alt="Apple"></span><div><strong>macOS</strong><small>APPLE SILICON · DMG</small></div></div><a class="download-action" href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer_1.0b_macOS_aarch64.dmg" download><span>Scarica per macOS</span><span>↓</span></a></article>
+          <article class="download-card platform-menu-card"><div class="platform-head"><span class="platform-icon"><img src="./assets/windows.svg" alt="Windows"></span><div><strong>Windows</strong><small>64 BIT · EXE / INSTALLER</small></div></div><button class="download-action download-toggle" type="button" data-menu="windows-menu" aria-expanded="false" aria-controls="windows-menu"><span>Scegli il download</span><span>⌄</span></button><div class="download-menu" id="windows-menu"><a href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer.exe" download><span>Eseguibile diretto</span><b>.EXE</b></a><a href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer_0.1.0_x64-setup.exe" download><span>Installer Windows</span><b>SETUP</b></a></div></article>
+          <article class="download-card platform-menu-card"><div class="platform-head"><span class="platform-icon"><img src="./assets/linux.svg" alt="Linux"></span><div><strong>Linux</strong><small>64 BIT · 3 FORMATI</small></div></div><button class="download-action download-toggle" type="button" data-menu="linux-menu" aria-expanded="false" aria-controls="linux-menu"><span>Scegli il formato</span><span>⌄</span></button><div class="download-menu" id="linux-menu"><a href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer_0.1.0_amd64.deb" download><span>Debian / Ubuntu</span><b>.DEB</b></a><a href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer-0.1.0-1.x86_64.rpm" download><span>Fedora / RHEL</span><b>.RPM</b></a><a href="https://www.costafabio.it/Applicazioni/Lucifer/Lucifer_0.1.0_amd64.AppImage" download><span>Universale</span><b>.APPIMAGE</b></a></div></article>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>COSTA FABIO · COPYRIGHT 2026</span><a href="mailto:costa.fabio.iosdev@hotmail.com">COSTA.FABIO.IOSDEV@HOTMAIL.COM</a></footer>
+  </div>
+  <script>
+    const toggles = [...document.querySelectorAll('.download-toggle')];
+    const closeMenus = (except = null) => {
+      document.querySelectorAll('.download-menu.open').forEach((menu) => {
+        if (menu === except) return;
+        menu.classList.remove('open');
+        document.querySelector(`[aria-controls="${menu.id}"]`)?.setAttribute('aria-expanded', 'false');
+      });
+    };
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const menu = document.getElementById(toggle.dataset.menu);
+        const shouldOpen = !menu.classList.contains('open');
+        closeMenus(menu);
+        menu.classList.toggle('open', shouldOpen);
+        toggle.setAttribute('aria-expanded', String(shouldOpen));
+      });
+    });
+    document.addEventListener('click', (event) => { if (!event.target.closest('.platform-menu-card')) closeMenus(); });
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const openToggle = toggles.find((toggle) => toggle.getAttribute('aria-expanded') === 'true');
+      closeMenus();
+      openToggle?.focus();
+    });
+  </script>
+</body>
+</html>
